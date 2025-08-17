@@ -64,16 +64,33 @@
       color: #fff;
       text-decoration: none;
     }
+    .alert {
+      border-radius: 10px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
   <div class="login-box">
+    <!-- Mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-3">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
     <div class="mb-3">
       <i class="fa-solid fa-user-circle fa-4x"></i>
     </div>
     <h2>Sign In</h2>
-    <form action="login.php" method="POST">
+    <form method="POST" action="/">
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa fa-user"></i></span>
         <input type="text" class="form-control" name="usuario" placeholder="Username" required>
